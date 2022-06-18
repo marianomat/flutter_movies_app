@@ -1,12 +1,21 @@
+import 'dart:math';
+
+import 'package:clase_3/models/actor_model.dart';
 import 'package:clase_3/models/cast_model.dart';
+import 'package:clase_3/models/pelicula_model.dart';
+import 'package:clase_3/pages/actor_detalle.dart';
 import 'package:clase_3/pages/pelicula_detalle.dart';
 import 'package:clase_3/providers/cast_provider.dart';
+import 'package:clase_3/providers/peliculas_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:clase_3/pages/actor_detalle.dart';
+import 'package:clase_3/models/actor_model.dart';
 
 class CastListView extends StatelessWidget {
   final List<CastActor> actores;
 
-  const CastListView({Key? key, required this.actores}) : super(key: key);
+  CastListView({Key? key, required this.actores}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +32,31 @@ class CastListView extends StatelessWidget {
                   height: 200,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ClipRRect( 
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: FadeInImage(
-                          placeholder: const AssetImage("assets/images/no-image.png"),
-                          fit: BoxFit.cover,
-                          image: actores[index % actores.length].getActorImg()),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => ActorDetalle(
+                                actorid: actores[index].id,
+                              ),
+                            ),
+                          );
+                        },
+                        child: FadeInImage(
+                            placeholder:
+                                const AssetImage("assets/images/no-image.png"),
+                            fit: BoxFit.cover,
+                            image:
+                                actores[index % actores.length].getActorImg()),
+                      ),
                     ),
                   ),
                 ),
-                    Text(actores[index % actores.length].name),
-                    Text(actores[index % actores.length].originalName)
+                Text(actores[index % actores.length].name),
+                Text(actores[index % actores.length].originalName)
               ],
             );
           }),

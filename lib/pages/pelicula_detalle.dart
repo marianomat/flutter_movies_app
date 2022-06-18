@@ -84,9 +84,10 @@ class PeliculaDetalle extends StatelessWidget {
     return FutureBuilder(
       future: castProvider.getCast(pelicula.id),
       builder: (BuildContext context, AsyncSnapshot<List<CastActor>> snapshot) {
-          print(snapshot.data);
         if (snapshot.hasData) {
-          return CastListView(actores: snapshot.data!);
+          return CastListView(
+            actores: snapshot.data!,
+          );
         } else {
           return const SizedBox(
               height: 500.0, child: Center(child: CircularProgressIndicator()));
